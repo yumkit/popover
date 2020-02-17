@@ -16,8 +16,7 @@ function App() {
     </div>
   );
 
-  const renderDropdown = ({ state, content, style, ref, ...rest }) => {
-    console.log(rest);
+  const renderDropdown = ({ state, content, style, ref }) => {
     return (
       state !== 'closed' && (
         <div
@@ -62,7 +61,7 @@ function App() {
           `}
           onClick={() => setOpened(!opened)}
         >
-          Button
+          Click me
         </button>
       </Dropdown>
     </div>

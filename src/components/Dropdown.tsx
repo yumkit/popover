@@ -114,7 +114,7 @@ const Dropdown = (props: DropdownProps) => {
     <Popper {...popperProps}>
       {popperChildProps => (
         <PlacementListener
-          placement={popperProps.placement}
+          placement={popperChildProps.placement}
           onPlacement={setPreCalculatedPlacement}
         >
           {renderDropdown({
