@@ -2,7 +2,7 @@ import React from 'react';
 
 import { css } from 'emotion';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import Dropdown from '@juissy/dropdown';
+import Dropdown from '@yumkit/dropdown';
 
 const offset = 10;
 const animationTimeout = 300;

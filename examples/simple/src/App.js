@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { css } from 'emotion';
-import Dropdown from '@juissy/dropdown';
+import Dropdown from '@yumkit/dropdown';
 
 function App() {
   const [opened, setOpened] = React.useState(true);

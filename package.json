@@ -1,6 +1,6 @@
 {
-  "name": "@juissy/dropdown",
-  "version": "0.0.2",
+  "name": "@yumkit/dropdown",
+  "version": "0.0.3",
   "description": "An extensible dropdown component for React",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -23,7 +23,7 @@
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Juissy/dropdown.git"
+    "url": "git+https://github.com/Yumkit/dropdown.git"
   },
   "author": {
     "name": "Anton Ignatev",
@@ -31,9 +31,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Juissy/dropdown/issues"
+    "url": "https://github.com/Yumkit/dropdown/issues"
   },
-  "homepage": "https://github.com/Juissy/dropdown#readme",
+  "homepage": "https://github.com/Yumkit/dropdown#readme",
   "peerDependencies": {
     "react": "^16.8.3",
     "react-dom": "^16.8.3"

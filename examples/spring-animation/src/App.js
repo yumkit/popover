@@ -2,7 +2,7 @@ import React from 'react';
 
 import { css } from 'emotion';
 import { useTransition, animated } from 'react-spring';
-import Dropdown from '@juissy/dropdown';
+import Dropdown from '@yumkit/dropdown';
 
 const DropdownComponent = React.forwardRef(
   ({ state, content, placement, style }, ref) => {

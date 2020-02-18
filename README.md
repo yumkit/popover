@@ -1,19 +1,19 @@
-# Juissy Dropdown
+# Yumkit Dropdown
 
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]](https://travis-ci.org/juissy/dropdown)
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]](https://travis-ci.org/yumkit/dropdown)
 
-[npm-image]: https://img.shields.io/npm/v/@juissy/dropdown?style=flat-square
-[npm-url]: https://www.npmjs.com/package/@juissy/dropdown
-[travis-image]: https://travis-ci.org/juissy/dropdown.svg?branch=master
+[npm-image]: https://img.shields.io/npm/v/@yumkit/dropdown?style=flat-square
+[npm-url]: https://www.npmjs.com/package/@yumkit/dropdown
+[travis-image]: https://travis-ci.org/yumkit/dropdown.svg?branch=master
 
 A simple and customizable dropdown component for React
 
 ## Install
 
 ```
-npm i @juissy/dropdown
+npm i @yumkit/dropdown
 or
-yarn add @juissy/dropdown
+yarn add @yumkit/dropdown
 ```
 
 ## Features
@@ -25,15 +25,15 @@ yarn add @juissy/dropdown
 
 ## Examples
 
-- [Simple](https://codesandbox.io/s/github/Juissy/dropdown/tree/master/examples/simple)
-- [Css animation with transition-group](https://codesandbox.io/s/github/Juissy/dropdown/tree/master/examples/css-animation)
-- [React-spring animation](https://codesandbox.io/s/github/Juissy/dropdown/tree/master/examples/spring-animation)
+- [Simple](https://codesandbox.io/s/github/Yumkit/dropdown/tree/master/examples/simple)
+- [Css animation with transition-group](https://codesandbox.io/s/github/Yumkit/dropdown/tree/master/examples/css-animation)
+- [React-spring animation](https://codesandbox.io/s/github/Yumkit/dropdown/tree/master/examples/spring-animation)
 
 ## Usage
 
 ```
 import React from 'react';
-import Dropdown from '@juissy/dropdown';
+import Dropdown from '@yumkit/dropdown';
 
 export default function App() {
   const [opened, setOpened] = React.useState(false);
