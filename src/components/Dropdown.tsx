@@ -69,7 +69,7 @@ const Dropdown = (props: DropdownProps) => {
 
   // This state is required for dropdown lifecycle hooks to work
   const pendingUnmount = React.useRef(!isOpened);
-  const [mounted, setMounted] = React.useState(isOpened);
+  const [isDropdownMounted, setDropdownMounted] = React.useState(isOpened);
 
   React.useEffect(() => {
     if (isMounted.current) {
@@ -77,8 +77,8 @@ const Dropdown = (props: DropdownProps) => {
       if (isOpened) {
         pendingUnmount.current = false;
 
-        setMounted(true);
-      } else if (mounted) {
+        setDropdownMounted(true);
+      } else if (isDropdownMounted) {
         // Avoid onUnmount calls when user reopens dropdown before it's unmounted
         pendingUnmount.current = true;
       }
@@ -108,7 +108,7 @@ const Dropdown = (props: DropdownProps) => {
                 // Handle onUnmount if dropdown is closing
                 if (pendingUnmount.current) {
                   setPreCalculatedPlacement(null);
-                  setMounted(false);
+                  setDropdownMounted(false);
                 }
               }}
             >
@@ -142,7 +142,7 @@ const Dropdown = (props: DropdownProps) => {
 
   let dropdown;
 
-  if (mounted) {
+  if (isDropdownMounted) {
     if (usePortal) {
       // Check for SSR and render portal
       dropdown =

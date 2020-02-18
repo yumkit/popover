@@ -21,7 +21,7 @@ yarn add @yumkit/dropdown
 - Auto positioning (vertical & horizontal)
 - Custom animations
 - Dropdown offsets
-- Builtin typescript definitions
+- Built-in typescript definitions
 
 ## Examples
 
