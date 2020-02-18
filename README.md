@@ -1,8 +1,9 @@
 # Juissy Dropdown
 
-[![Build Status][travis-image]](https://travis-ci.org/juissy/dropdown)
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]](https://travis-ci.org/juissy/dropdown)
 
 [npm-image]: https://img.shields.io/npm/v/@juissy/dropdown?style=flat-square
+[npm-url]: https://www.npmjs.com/package/@juissy/dropdown
 [travis-image]: https://travis-ci.org/juissy/dropdown.svg?branch=master
 
 A simple and customizable dropdown component for React
