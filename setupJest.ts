@@ -8,6 +8,7 @@ jest.mock('popper.js', () => {
       return {
         destroy: () => {},
         scheduleUpdate: () => {},
+        disableEventListeners: () => {},
       };
     }
   };

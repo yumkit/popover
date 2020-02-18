@@ -64,18 +64,26 @@ const Dropdown = (props: DropdownProps) => {
     null
   );
 
-  // This state is required for dropdown lifecycle hooks to work
-  const pendingUnmount = React.useRef(false);
-  const [mounted, setMounted] = React.useState(false);
-  React.useEffect(() => {
-    // Mount dropdown on open
-    if (isOpened) {
-      pendingUnmount.current = false;
+  // Required for handling useEffect only after mount
+  const isMounted = React.useRef(false);
 
-      setMounted(true);
-    } else if (mounted) {
-      // Avoid onUnmount calls when user reopens dropdown before it's unmounted
-      pendingUnmount.current = true;
+  // This state is required for dropdown lifecycle hooks to work
+  const pendingUnmount = React.useRef(!isOpened);
+  const [mounted, setMounted] = React.useState(isOpened);
+
+  React.useEffect(() => {
+    if (isMounted.current) {
+      // Mount dropdown on open
+      if (isOpened) {
+        pendingUnmount.current = false;
+
+        setMounted(true);
+      } else if (mounted) {
+        // Avoid onUnmount calls when user reopens dropdown before it's unmounted
+        pendingUnmount.current = true;
+      }
+    } else {
+      isMounted.current = true;
     }
   }, [isOpened]); // eslint-disable-line react-hooks/exhaustive-deps
 

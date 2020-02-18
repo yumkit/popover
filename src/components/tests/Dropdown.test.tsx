@@ -72,43 +72,4 @@ describe('<Dropdown />', () => {
 
     expect(portalTarget.textContent).toBe('Content');
   });
-
-  test('runs the dropdown lifecycle', () => {
-    const renderDropdown = jest.fn(() => null);
-
-    const { rerender } = render(
-      <Dropdown
-        isOpened
-        renderDropdown={renderDropdown}
-        renderContent={defaultRenderContent}
-      >
-        <div data-testid={ids.reference}>Reference</div>
-      </Dropdown>
-    );
-
-    expect(renderDropdown.mock.calls.length).toBe(2);
-
-    // First dropdown should calculate the placement
-    // @ts-ignore
-    expect(renderDropdown.mock.calls[0][0].state).toBe('calculating');
-    // Then it should render in the opened state
-    // @ts-ignore
-    expect(renderDropdown.mock.calls[1][0].state).toBe('opened');
-
-    rerender(
-      <Dropdown
-        isOpened={false}
-        renderDropdown={renderDropdown}
-        renderContent={defaultRenderContent}
-      >
-        <div data-testid={ids.reference}>Reference</div>
-      </Dropdown>
-    );
-
-    expect(renderDropdown.mock.calls.length).toBe(3);
-
-    // And then finally render in the closed state
-    // @ts-ignore
-    expect(renderDropdown.mock.calls[2][0].state).toBe('closed');
-  });
 });
