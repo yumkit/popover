@@ -1,15 +1,15 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { Placement, Modifiers } from 'popper.js';
-import { Manager, Reference, Popper, PopperChildrenProps } from 'react-popper';
+import { Placement, Modifier } from '@popperjs/core';
+import Popper, { PopperRenderOptions } from './Popper';
 
 import PlacementListener from './PlacementListener';
 import MountListener from './MountListener';
 
 type DropdownState = 'opened' | 'closed' | 'calculating';
 
-export interface DropdownOptions extends PopperChildrenProps {
+export interface DropdownOptions extends PopperRenderOptions {
   /** The result of renderContent */
   content: React.ReactNode;
 
@@ -39,7 +39,7 @@ export interface DropdownProps {
   /** react-popper props (https://github.com/popperjs/react-popper) */
   eventsEnabled?: boolean;
   placement?: Placement;
-  modifiers?: Modifiers;
+  modifiers?: Array<Partial<Modifier<any>>>;
 }
 
 const Dropdown = (props: DropdownProps) => {
@@ -57,6 +57,8 @@ const Dropdown = (props: DropdownProps) => {
 
   // Force a single node as children
   React.Children.only(children);
+
+  const referenceRef = React.useRef(null);
 
   // Store a pre-calculated position of a dropdown
   // This is required for placement-based animations to work
@@ -89,19 +91,21 @@ const Dropdown = (props: DropdownProps) => {
 
   // Popper props
   const popperProps = {
-    modifiers,
-    placement,
-    eventsEnabled,
+    // modifiers,
+    // placement,
+    // eventsEnabled,
+    // referenceRef
+    referenceRef,
   };
 
   const content = preCalculatedPlacement ? (
-    <Popper {...popperProps}>
-      {popperChildProps =>
+    <Popper
+      {...popperProps}
+      render={popperOptions =>
         renderDropdown({
-          ...popperChildProps,
+          ...popperOptions,
           state: isOpened ? 'opened' : 'closed',
-          placement: popperChildProps.placement || preCalculatedPlacement,
-          style: popperChildProps.style,
+          placement: placement || preCalculatedPlacement,
           content: (
             <MountListener
               onUnmount={() => {
@@ -117,10 +121,11 @@ const Dropdown = (props: DropdownProps) => {
           ),
         })
       }
-    </Popper>
+    ></Popper>
   ) : (
-    <Popper {...popperProps}>
-      {popperChildProps => (
+    <Popper
+      {...popperProps}
+      render={popperChildProps => (
         <PlacementListener
           placement={popperChildProps.placement}
           onPlacement={setPreCalculatedPlacement}
@@ -137,7 +142,7 @@ const Dropdown = (props: DropdownProps) => {
           })}
         </PlacementListener>
       )}
-    </Popper>
+    />
   );
 
   let dropdown;
@@ -154,17 +159,11 @@ const Dropdown = (props: DropdownProps) => {
     }
   }
   return (
-    <Manager>
-      <Reference>
-        {({ ref }) => {
-          // We assign ref to the children
-          // This allows us to calculate its' position and dimensions
-          return React.cloneElement(children, { ref });
-        }}
-      </Reference>
+    <>
+      {React.cloneElement(children, { ref: referenceRef })}
 
       {dropdown}
-    </Manager>
+    </>
   );
 };
 

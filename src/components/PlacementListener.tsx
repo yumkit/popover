@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Placement } from 'popper.js';
+import { Placement } from '@popperjs/core';
 
 interface PlacementListenerProps {
   placement?: Placement;

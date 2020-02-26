@@ -11,15 +11,17 @@ const transitionClassName = 'dropdown';
 function App() {
   const [opened, setOpened] = React.useState(true);
 
-  const renderContent = () => (
-    <div
-      className={css`
-        padding: 50px;
-      `}
-    >
-      Content
-    </div>
-  );
+  const renderContent = () => {
+    return (
+      <div
+        className={css`
+          padding: 50px;
+        `}
+      >
+        Content
+      </div>
+    );
+  };
 
   const renderDropdown = ({ state, content, placement, style, ref }) => {
     const className = css`
