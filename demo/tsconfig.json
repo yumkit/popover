@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "module": "esnext",
+    "baseUrl": ".",
+    "lib": ["es2017", "es7", "es6", "dom"],
+    "noImplicitAny": true,
+    "jsx": "react",
+    "target": "es5",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "esModuleInterop": true
+  },
+  "include": ["./src"],
+  "exclude": ["./public"]
+}

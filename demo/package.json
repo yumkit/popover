@@ -1,0 +1,50 @@
+{
+  "name": "simple",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@rescripts/cli": "^0.0.13",
+    "@rescripts/rescript-env": "^0.0.11",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^25.1.4",
+    "@types/node": "^13.9.3",
+    "@types/react": "^16.9.25",
+    "@types/react-custom-scrollbars": "^4.0.6",
+    "@types/react-dom": "^16.9.5",
+    "@types/styled-components": "^5.0.1",
+    "@welldone-software/why-did-you-render": "^4.0.5",
+    "@yumkit/dropdown": "latest",
+    "emotion": "^10.0.27",
+    "react": "^16.12.0",
+    "react-custom-scrollbars": "^4.2.1",
+    "react-dom": "^16.12.0",
+    "react-scripts": "3.4.0",
+    "react-spring": "^8.0.27",
+    "styled-components": "^5.0.1",
+    "typeface-rubik": "^0.0.72",
+    "typescript": "^3.8.3"
+  },
+  "scripts": {
+    "start": "rescripts start",
+    "build": "rescripts build",
+    "test": "rescripts test",
+    "eject": "rescripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
