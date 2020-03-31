@@ -1,6 +1,6 @@
 import React from 'react';
 
-import YumPopover from '@yumkit/dropdown';
+import YumPopover from '@yumkit/popover';
 
 import { Button, Dropdown, SpringRenderer } from '../../../../components';
 

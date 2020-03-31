@@ -15,7 +15,7 @@
     "@types/react-dom": "^16.9.5",
     "@types/styled-components": "^5.0.1",
     "@welldone-software/why-did-you-render": "^4.0.5",
-    "@yumkit/dropdown": "latest",
+    "@yumkit/popover": "latest",
     "emotion": "^10.0.27",
     "react": "^16.12.0",
     "react-custom-scrollbars": "^4.2.1",

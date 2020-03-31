@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ContentRenderOptions } from '@yumkit/dropdown';
+import { ContentRenderOptions } from '@yumkit/popover';
 
 import { Wrapper, Arrow, ArrowShadow, Content } from './styled';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DropdownOptions } from '@yumkit/dropdown';
+import { DropdownOptions } from '@yumkit/popover';
 
 import { useTransition, animated } from 'react-spring';
 

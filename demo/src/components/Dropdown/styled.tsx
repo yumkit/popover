@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Placement } from '@yumkit/dropdown';
+import { Placement } from '@yumkit/popover';
 
 const getTriangleStyles = (placement: Placement) => {
   const size = 5;
