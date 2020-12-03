@@ -5,7 +5,12 @@ import { PopperState } from './usePopper';
 export type OffsetArray = [number, number];
 export type OffsetFunction = (placement: Placement) => OffsetArray;
 export type Offsets = OffsetArray | OffsetFunction;
-export type Trigger = 'click' | 'click-autoclose' | 'hover' | 'hover-autoclose';
+export type Trigger =
+  | 'click'
+  | 'click-autoclose'
+  | 'hover'
+  | 'hover-autoclose'
+  | 'focus';
 
 export interface PopperOptions {
   eventsEnabled?: boolean;

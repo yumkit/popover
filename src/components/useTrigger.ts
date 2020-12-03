@@ -89,6 +89,26 @@ const useTrigger = (props: DropdownProps) => {
         };
       }
 
+      case 'focus': {
+        const onFocus = () => {
+          setAutoOpened(true);
+
+          clearTimeout(closeTimeout.current);
+          closeTimeout.current = null;
+        };
+
+        const onBlur = () => {
+          closeTimeout.current = setTimeout(() => {
+            setAutoOpened(false);
+          }, closeDelay);
+        };
+
+        return {
+          onFocus: mergeCallbacks(children.props.onFocus, onFocus),
+          onBlur: mergeCallbacks(children.props.onBlur, onBlur),
+        };
+      }
+
       default:
         return {};
     }
@@ -99,6 +119,7 @@ const useTrigger = (props: DropdownProps) => {
     children.props.onBlur,
     children.props.onMouseEnter,
     children.props.onMouseLeave,
+    children.props.onFocus,
   ]);
 
   const contentProps = React.useMemo(() => {
