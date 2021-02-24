@@ -12,6 +12,7 @@ import useTrigger from './useTrigger';
 
 import PlacementListener from './PlacementListener';
 import MountListener from './MountListener';
+import VirtualElement from './VirtualElement';
 
 const defaultRenderDropdown: DropdownProps['renderDropdown'] = ({
   opened,
@@ -43,11 +44,20 @@ const Dropdown = (props: DropdownProps) => {
 
   const [popperElement, setPopperRef] = useCallbackRef();
   const [referenceElement, setReferenceRef] = useCallbackRef();
+  const [virtualElement, setVirtualRef] = useCallbackRef();
   const [arrowElement, setArrowRef] = useCallbackRef();
 
-  const { isOpened, referenceProps, contentProps, contentOptions } = useTrigger(
-    props
-  );
+  const {
+    isOpened,
+    referenceProps,
+    contentProps,
+    contentOptions,
+    cursorPosition,
+    renderVirtual,
+  } = useTrigger(props, {
+    referenceElement,
+    popperElement,
+  });
 
   // Force a single node as children
   React.Children.only(children);
@@ -93,7 +103,7 @@ const Dropdown = (props: DropdownProps) => {
   };
 
   const popperState = usePopper({
-    referenceElement,
+    referenceElement: renderVirtual ? virtualElement : referenceElement,
     popperElement,
     arrowElement,
     options: popperProps,
@@ -215,7 +225,17 @@ const Dropdown = (props: DropdownProps) => {
     <>
       {React.cloneElement(children, { ref: composedRef, ...referenceProps })}
 
-      {dropdown}
+      <React.Fragment
+        key={
+          renderVirtual ? `${cursorPosition.x}-${cursorPosition.y}` : undefined
+        }
+      >
+        {dropdown}
+      </React.Fragment>
+
+      {renderVirtual && (
+        <VirtualElement ref={setVirtualRef} {...cursorPosition} />
+      )}
     </>
   );
 };

@@ -10,7 +10,9 @@ export type Trigger =
   | 'click-autoclose'
   | 'hover'
   | 'hover-autoclose'
-  | 'focus';
+  | 'focus'
+  | 'contextmenu'
+  | 'contextmenu-reference';
 
 export interface PopperOptions {
   eventsEnabled?: boolean;

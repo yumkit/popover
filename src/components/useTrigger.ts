@@ -8,7 +8,10 @@ const mergeCallbacks = (...callbacks: any) => (...args: any) => {
 
 const closeDelay = 50;
 
-const useTrigger = (props: DropdownProps) => {
+const useTrigger = (
+  props: DropdownProps,
+  refs: { referenceElement: any; popperElement: any }
+) => {
   const {
     opened: manuallyOpened,
     hideOnScroll,
@@ -16,16 +19,18 @@ const useTrigger = (props: DropdownProps) => {
     children,
   } = props;
 
+  const { referenceElement, popperElement } = refs;
+
   const [autoOpened, setAutoOpened] = React.useState(false);
+  const [cursorPosition, setCursorPosition] = React.useState({ x: 0, y: 0 });
   const closeTimeout = React.useRef(null);
 
   const [trigger, type] = (triggerOption || '').split('-');
+  const renderVirtual = trigger === 'contextmenu' && type !== 'reference';
 
   React.useEffect(() => {
     if (hideOnScroll && triggerOption && autoOpened) {
       const listener = () => {
-        console.log('scroll');
-
         setAutoOpened(false);
       };
 
@@ -37,8 +42,54 @@ const useTrigger = (props: DropdownProps) => {
     }
   }, [hideOnScroll, triggerOption, autoOpened]);
 
+  React.useEffect(() => {
+    if (trigger === 'contextmenu') {
+      const contextMenuListener = (e: MouseEvent) => {
+        if (referenceElement && referenceElement.contains(e.target)) {
+          e.preventDefault();
+
+          setAutoOpened(true);
+
+          if (renderVirtual) {
+            setCursorPosition({
+              x: e.pageX,
+              y: e.pageY,
+            });
+          }
+        }
+      };
+
+      const clickListener = (e: MouseEvent) => {
+        if (popperElement && !popperElement.contains(e.target)) {
+          setAutoOpened(false);
+        }
+      };
+
+      document.addEventListener('contextmenu', contextMenuListener);
+      document.addEventListener('click', clickListener);
+
+      return () => {
+        document.removeEventListener('contextmenu', contextMenuListener);
+        document.removeEventListener('click', clickListener);
+      };
+    }
+  }, [popperElement, referenceElement, renderVirtual, trigger]);
+
   const referenceProps = React.useMemo(() => {
     switch (trigger) {
+      case 'contextmenu': {
+        const onClick = (e: React.MouseEvent) => {
+          e.preventDefault();
+
+          setAutoOpened(false);
+        };
+
+        return {
+          tabindex: 0,
+          onClick: mergeCallbacks(children.props.onClick, onClick),
+        };
+      }
+
       case 'click': {
         const onClick = (e: React.MouseEvent) => {
           e.preventDefault();
@@ -195,6 +246,8 @@ const useTrigger = (props: DropdownProps) => {
     referenceProps,
     contentProps,
     contentOptions,
+    cursorPosition,
+    renderVirtual,
   };
 };
 
