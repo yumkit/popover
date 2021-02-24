@@ -77,19 +77,6 @@ const useTrigger = (
 
   const referenceProps = React.useMemo(() => {
     switch (trigger) {
-      case 'contextmenu': {
-        const onClick = (e: React.MouseEvent) => {
-          e.preventDefault();
-
-          setAutoOpened(false);
-        };
-
-        return {
-          tabindex: 0,
-          onClick: mergeCallbacks(children.props.onClick, onClick),
-        };
-      }
-
       case 'click': {
         const onClick = (e: React.MouseEvent) => {
           e.preventDefault();
