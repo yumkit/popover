@@ -1,6 +1,6 @@
 {
   "name": "@yumkit/popover",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "An extensible popover/dropdown/tooltip component for React",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -43,6 +43,7 @@
     "@babel/preset-env": "^7.8.6",
     "@babel/preset-typescript": "^7.8.3",
     "@babel/types": "^7.8.3",
+    "@emotion/core": "^10.0.28",
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^9.4.0",
     "@types/jest": "^25.1.2",
@@ -70,8 +71,7 @@
     "ts-jest": "^25.2.0",
     "ts-loader": "^6.2.1",
     "tslib": "^1.10.0",
-    "typescript": "^3.7.5",
-    "@emotion/core": "^10.0.28"
+    "typescript": "^3.7.5"
   },
   "dependencies": {
     "@popperjs/core": "^2.0.6",
