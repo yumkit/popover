@@ -189,7 +189,8 @@ const Dropdown = (props: DropdownProps) => {
             visibility: 'hidden',
           },
           // Hide the dummy dropdown
-          content: renderContent(contentRenderArgs),
+          // use calculating to understand that's dummy dropdown
+          content: renderContent({ ...contentRenderArgs, calculating: true }),
         })}
       </PlacementListener>
     );
