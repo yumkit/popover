@@ -40,6 +40,7 @@ export interface ContentRenderOptions
   arrowProps?: Record<string, any>;
 
   setOpened?: (opened: boolean) => void;
+  calculating?: boolean;
 }
 
 export interface DropdownProps extends PopperOptions {
