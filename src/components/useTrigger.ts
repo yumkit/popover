@@ -75,6 +75,27 @@ const useTrigger = (
     }
   }, [popperElement, referenceElement, renderVirtual, trigger]);
 
+  React.useEffect(() => {
+    if (trigger === 'click' && type === 'autoclose') {
+      const clickListener = (e: MouseEvent) => {
+        if (
+          popperElement &&
+          !popperElement.contains(e.target) &&
+          referenceElement &&
+          !referenceElement.contains(e.target)
+        ) {
+          setAutoOpened(false);
+        }
+      };
+
+      document.addEventListener('click', clickListener);
+
+      return () => {
+        document.removeEventListener('click', clickListener);
+      };
+    }
+  });
+
   const referenceProps = React.useMemo(() => {
     switch (trigger) {
       case 'click': {
@@ -84,20 +105,15 @@ const useTrigger = (
           setAutoOpened(prevOpened => !prevOpened);
         };
 
-        if (type !== 'autoclose') {
+        if (type === 'autoclose') {
           return {
             onClick: mergeCallbacks(children.props.onClick, onClick),
+            tabindex: 0,
           };
         }
 
-        const onBlur = (e: React.MouseEvent) => {
-          setAutoOpened(false);
-        };
-
         return {
           onClick: mergeCallbacks(children.props.onClick, onClick),
-          onBlur: mergeCallbacks(children.props.onBlur, onBlur),
-          tabindex: 0,
         };
       }
 
@@ -163,17 +179,6 @@ const useTrigger = (
   const contentProps = React.useMemo(() => {
     switch (trigger) {
       case 'click': {
-        if (type === 'autoclose') {
-          const onMouseDown = (e: React.MouseEvent) => {
-            e.preventDefault();
-            e.stopPropagation();
-          };
-
-          return {
-            onMouseDown,
-          };
-        }
-
         return {};
       }
 
