@@ -6,7 +6,8 @@ const mergeCallbacks = (...callbacks: any) => (...args: any) => {
   callbacks.filter(Boolean).forEach((fn: any) => fn(...args));
 };
 
-const closeDelay = 50;
+const OPEN_DELAY = 0;
+const CLOSE_DELAY = 50;
 
 const useTrigger = (
   props: DropdownProps,
@@ -16,6 +17,8 @@ const useTrigger = (
     opened: manuallyOpened,
     hideOnScroll,
     trigger: triggerOption,
+    closeDelay = CLOSE_DELAY,
+    openDelay = OPEN_DELAY,
     children,
   } = props;
 
@@ -23,6 +26,7 @@ const useTrigger = (
 
   const [autoOpened, setAutoOpened] = React.useState(false);
   const [cursorPosition, setCursorPosition] = React.useState({ x: 0, y: 0 });
+  const openTimeout = React.useRef(null);
   const closeTimeout = React.useRef(null);
 
   const [trigger, type] = (triggerOption || '').split('-');
@@ -119,15 +123,20 @@ const useTrigger = (
 
       case 'hover': {
         const onMouseEnter = () => {
-          setAutoOpened(true);
+          openTimeout.current = setTimeout(() => {
+            setAutoOpened(true);
 
-          clearTimeout(closeTimeout.current);
-          closeTimeout.current = null;
+            clearTimeout(closeTimeout.current);
+            closeTimeout.current = null;
+          }, openDelay);
         };
 
         const onMouseLeave = () => {
           closeTimeout.current = setTimeout(() => {
             setAutoOpened(false);
+
+            clearTimeout(openTimeout.current);
+            openTimeout.current = null;
           }, closeDelay);
         };
 
@@ -145,15 +154,20 @@ const useTrigger = (
 
       case 'focus': {
         const onFocus = () => {
-          setAutoOpened(true);
+          openTimeout.current = setTimeout(() => {
+            setAutoOpened(true);
 
-          clearTimeout(closeTimeout.current);
-          closeTimeout.current = null;
+            clearTimeout(closeTimeout.current);
+            closeTimeout.current = null;
+          }, openDelay);
         };
 
         const onBlur = () => {
           closeTimeout.current = setTimeout(() => {
             setAutoOpened(false);
+
+            clearTimeout(openTimeout.current);
+            openTimeout.current = null;
           }, closeDelay);
         };
 
@@ -169,6 +183,8 @@ const useTrigger = (
   }, [
     trigger,
     type,
+    closeDelay,
+    openDelay,
     children.props.onClick,
     children.props.onBlur,
     children.props.onMouseEnter,
@@ -207,7 +223,7 @@ const useTrigger = (
       default:
         return {};
     }
-  }, [trigger, type]);
+  }, [trigger, type, closeDelay]);
 
   const contentOptions = React.useMemo(() => {
     if (trigger) {

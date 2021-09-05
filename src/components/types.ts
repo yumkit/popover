@@ -56,6 +56,12 @@ export interface DropdownProps extends PopperOptions {
   /** A function to render content */
   renderContent: (options: ContentRenderOptions) => any;
 
+  /** Delay before closing dropdown  */
+  closeDelay?: number;
+
+  /** Delay before opening dropdown - use to prevent popover-hell by hover  */
+  openDelay?: number;
+
   /** Is dropdown opened? */
   opened?: boolean;
 
