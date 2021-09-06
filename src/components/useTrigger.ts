@@ -125,19 +125,19 @@ const useTrigger = (
         const onMouseEnter = () => {
           openTimeout.current = setTimeout(() => {
             setAutoOpened(true);
-
-            clearTimeout(closeTimeout.current);
-            closeTimeout.current = null;
           }, openDelay);
+
+          clearTimeout(closeTimeout.current);
+          closeTimeout.current = null;
         };
 
         const onMouseLeave = () => {
           closeTimeout.current = setTimeout(() => {
             setAutoOpened(false);
-
-            clearTimeout(openTimeout.current);
-            openTimeout.current = null;
           }, closeDelay);
+
+          clearTimeout(openTimeout.current);
+          openTimeout.current = null;
         };
 
         return {
@@ -156,19 +156,19 @@ const useTrigger = (
         const onFocus = () => {
           openTimeout.current = setTimeout(() => {
             setAutoOpened(true);
-
-            clearTimeout(closeTimeout.current);
-            closeTimeout.current = null;
           }, openDelay);
+
+          clearTimeout(closeTimeout.current);
+          closeTimeout.current = null;
         };
 
         const onBlur = () => {
           closeTimeout.current = setTimeout(() => {
             setAutoOpened(false);
-
-            clearTimeout(openTimeout.current);
-            openTimeout.current = null;
           }, closeDelay);
+
+          clearTimeout(openTimeout.current);
+          openTimeout.current = null;
         };
 
         return {
