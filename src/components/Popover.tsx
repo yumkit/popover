@@ -40,6 +40,8 @@ const Dropdown = (props: DropdownProps) => {
     modifiers,
     offsets,
     tether = false,
+    onOpen,
+    onClose,
   } = props;
 
   const [popperElement, setPopperRef] = useCallbackRef();
@@ -159,7 +161,16 @@ const Dropdown = (props: DropdownProps) => {
         style,
         content: (
           <MountListener
+            onMount={() => {
+              if (onOpen) {
+                onOpen();
+              }
+            }}
             onUnmount={() => {
+              if (onClose) {
+                onClose();
+              }
+
               // Handle onUnmount if dropdown is closing
               if (pendingUnmount.current) {
                 setPreCalculatedPlacement(null);
@@ -195,14 +206,16 @@ const Dropdown = (props: DropdownProps) => {
       </PlacementListener>
     );
   }, [
-    preCalculatedPlacement,
-    renderContent,
-    renderDropdown,
-    renderCalculating,
     popperState,
-    contentRenderArgs,
+    preCalculatedPlacement,
+    renderCalculating,
+    renderDropdown,
     setPopperRef,
+    renderContent,
+    contentRenderArgs,
     isOpened,
+    onOpen,
+    onClose,
   ]);
 
   let dropdown;
