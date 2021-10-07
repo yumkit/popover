@@ -73,6 +73,8 @@ const Dropdown = (props: DropdownProps) => {
   // Required for handling useEffect only after mount
   const isMounted = React.useRef(false);
 
+  const isOpenedRef = React.useRef();
+
   // This state is required for dropdown lifecycle hooks to work
   const pendingUnmount = React.useRef(!isOpened);
   const [isDropdownMounted, setDropdownMounted] = React.useState(isOpened);
@@ -84,9 +86,19 @@ const Dropdown = (props: DropdownProps) => {
         pendingUnmount.current = false;
 
         setDropdownMounted(true);
+
+        // Fire callbacks
+        if (onOpen) {
+          onOpen();
+        }
       } else if (isDropdownMounted) {
         // Avoid onUnmount calls when user reopens dropdown before it's unmounted
         pendingUnmount.current = true;
+
+        // Fire callbacks
+        if (onClose) {
+          onClose();
+        }
       }
     } else {
       isMounted.current = true;
@@ -161,16 +173,7 @@ const Dropdown = (props: DropdownProps) => {
         style,
         content: (
           <MountListener
-            onMount={() => {
-              if (onOpen) {
-                onOpen();
-              }
-            }}
             onUnmount={() => {
-              if (onClose) {
-                onClose();
-              }
-
               // Handle onUnmount if dropdown is closing
               if (pendingUnmount.current) {
                 setPreCalculatedPlacement(null);
@@ -214,8 +217,6 @@ const Dropdown = (props: DropdownProps) => {
     renderContent,
     contentRenderArgs,
     isOpened,
-    onOpen,
-    onClose,
   ]);
 
   let dropdown;
