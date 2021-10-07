@@ -1,6 +1,6 @@
 {
   "name": "@yumkit/popover",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "An extensible popover/dropdown/tooltip component for React",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
