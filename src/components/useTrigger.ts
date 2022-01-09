@@ -112,7 +112,7 @@ const useTrigger = (
         if (type === 'autoclose') {
           return {
             onClick: mergeCallbacks(children.props.onClick, onClick),
-            tabindex: 0,
+            tabIndex: 0,
           };
         }
 
