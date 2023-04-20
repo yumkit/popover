@@ -28,6 +28,7 @@ const useTrigger = (
   const [cursorPosition, setCursorPosition] = React.useState({ x: 0, y: 0 });
   const openTimeout = React.useRef(null);
   const closeTimeout = React.useRef(null);
+  const preventClick = React.useRef(false);
 
   const [trigger, type] = (triggerOption || '').split('-');
   const renderVirtual = trigger === 'contextmenu' && type !== 'reference';
@@ -48,6 +49,40 @@ const useTrigger = (
 
   React.useEffect(() => {
     if (trigger === 'contextmenu') {
+      document.addEventListener('touchstart', (e) => {
+        if (referenceElement && referenceElement.contains(e.target)) {
+          clearTimeout(openTimeout.current);
+
+          openTimeout.current = setTimeout(() => {
+            openTimeout.current = null;
+
+            e.preventDefault();
+
+            preventClick.current = true;
+
+            setAutoOpened(true);
+
+            if (renderVirtual) {
+              const touch = e.touches[0];
+
+              setCursorPosition({
+                x: touch.pageX,
+                y: touch.pageY,
+              });
+            }  
+          }, 500);
+        }
+      })
+
+      document.addEventListener('touchend', () => {
+        clearTimeout(openTimeout.current)
+        openTimeout.current = null;
+      });
+      document.addEventListener('touchmove', () => {
+        clearTimeout(openTimeout.current)
+        openTimeout.current = null;
+      });
+      
       const contextMenuListener = (e: MouseEvent) => {
         if (referenceElement && referenceElement.contains(e.target)) {
           e.preventDefault();
@@ -65,10 +100,15 @@ const useTrigger = (
 
       const clickListener = (e: MouseEvent) => {
         if (popperElement && !popperElement.contains(e.target)) {
-          setAutoOpened(false);
+          if (preventClick.current) {
+            preventClick.current = false;
+          } else {
+            setAutoOpened(false);
+          }
         }
+        
       };
-
+      
       document.addEventListener('contextmenu', contextMenuListener);
       document.addEventListener('click', clickListener);
 

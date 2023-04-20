@@ -8,6 +8,7 @@ export const Wrapper = styled.button`
   font-size: 16px;
   line-height: 16px;
   color: #fff;
+  user-select: none;
 
   transition: background-color 0.2s ease-in-out;
 
