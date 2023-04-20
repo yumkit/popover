@@ -50,6 +50,10 @@ const useTrigger = (
   React.useEffect(() => {
     if (trigger === 'contextmenu') {
       document.addEventListener('touchstart', (e) => {
+        if (referenceElement && !referenceElement.contains(e.target)) {
+          setAutoOpened(false);
+        }
+
         if (referenceElement && referenceElement.contains(e.target)) {
           clearTimeout(openTimeout.current);
 
